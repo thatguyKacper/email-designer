@@ -25,7 +25,8 @@ module.exports = {
       '@typescript-eslint/no-explicit-any': 'off',
       "import/no-extraneous-dependencies": ["off", {"devDependencies": true}],
       "consistent-return": "off",
-      "no-plusplus": "off"
+      "no-plusplus": "off",
+      "radix": "as-needed"
     },
   };
   

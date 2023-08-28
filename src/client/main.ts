@@ -1,108 +1,233 @@
 import './style.css';
+import SectionElement from './components/SectionElement.js';
+import ColumnElement from './components/ColumnElement.js';
+import TextElement from './components/TextElement.js';
+import DragAndDropElement from './components/DragAndDropElement';
+import TestClass from './components/TestClass';
+import BodyElement from './components/BodyElement';
+import ButtonElement from './components/ButtonElement';
+import ImageElement from './components/ImageElement';
 
-const output = document.querySelector('.output');
-const columnBtn = document.querySelector('#add-column');
-const sectionBtn = document.querySelector('#add-section');
-const textBtn = document.querySelector('#add-text');
+const previewBtn = document.querySelector('#preview') as HTMLButtonElement;
+const codeBtn = document.querySelector('#code') as HTMLButtonElement;
+const sectionBtn = document.querySelector('#add-section') as HTMLButtonElement;
+const columnBtn = document.querySelector('#add-column') as HTMLButtonElement;
+const textBtn = document.querySelector('#add-text') as HTMLButtonElement;
+const buttonBtn = document.querySelector('#add-button') as HTMLButtonElement;
+const imageBtn = document.querySelector('#add-image') as HTMLButtonElement;
+const output = document.querySelector('.output') as HTMLElement;
 
-let currentSection = null;
-let sectionCount = 0;
-let columnCount = 0;
-let textCount = 0;
-let dragElement = null;
-let closestParent = null;
+const body = new BodyElement(0).createElement();
+const main = output.appendChild(body);
+let currrentElement = output.appendChild(body);
+let clickedElement;
 
-function selectElement() {}
+// Create a global array to store added elements
+const addedElements: TestClass[] = [new BodyElement(0)];
 
-function move() {
-  const element = document.getElementById(dragElement);
+// Function to generate the components object
+function generateComponents() {
+  const components = addedElements.map((element) => {
+    const { type, attributes, content } = element;
+    return { type, attributes, content };
+  });
 
-  closestParent.appendChild(element);
-
-  return element;
+  return components;
+  // console.log({ components });
 }
 
-function dragStart(e) {
-  dragElement = e.target.id;
+async function generateEmail(type) {
+  const components = generateComponents();
+
+  try {
+    const response = await fetch('/api/v1/designer/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ components }),
+    });
+
+    console.log(JSON.stringify({ components }));
+    if (response.ok) {
+      const htmlResponse = await response.text();
+      // console.log(htmlResponse);
+      if (type === 'HTML') {
+        output.innerHTML = htmlResponse;
+      } else {
+        output.innerText = htmlResponse;
+      }
+    } else {
+      console.error('Error:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
 
-function dragEnter(e) {
-  e.preventDefault();
+previewBtn.addEventListener('click', () => generateEmail('HTML'));
+codeBtn.addEventListener('click', () => generateEmail('CODE'));
 
-  closestParent = e.target.closest('.section');
+function editElement(element, attributes) { 
+  const obj ={
+    ...element,
+    attributes: {
+      ...element.attributes,
+      ...attributes,
+    },
+  };
+  console.log(obj);
+  addedElements[element.id] = obj;
 }
 
-function dragOver() {
-  move();
-}
+// test
 
-function dragLeave() {
-  move();
-}
+const p = document.getElementById('padding-section')
 
-function dragDrop(e) {
-  e.preventDefault();
+p.addEventListener('input', (e)=> e.target.value)
 
-  closestParent = e.target.closest('.section');
 
-  move();
-}
+// end test
 
-function createSection() {
-  sectionCount++;
-  currentSection = document.createElement('div');
-  currentSection.classList.add('section');
-  currentSection.setAttribute('id', `section-${sectionCount}`);
-  currentSection.setAttribute('draggable', 'true');
-  output.appendChild(currentSection);
+output.addEventListener('click', (e) => {
+  clickedElement = e.target
+  clickedElement.classList.toggle('active')
 
-  // currentSection.addEventListener('dragstart', dragStart);
-  currentSection.addEventListener('dragenter', dragEnter);
-  currentSection.addEventListener('dragover', dragOver);
-  currentSection.addEventListener('dragleave', dragLeave);
-  // currentSection.addEventListener('drop', dragDrop);
-}
-
-function createColumn() {
-  if (currentSection === null) return;
-
-  columnCount++;
-  const column = document.createElement('div');
-  column.classList.add('column');
-  column.setAttribute('id', `column-${columnCount}`);
-  column.setAttribute('draggable', 'true');
-  currentSection.appendChild(column);
-
-  column.addEventListener('dragstart', dragStart);
-  column.addEventListener('dragenter', dragEnter);
-  column.addEventListener('dragover', dragOver);
-  column.addEventListener('dragleave', dragLeave);
-  column.addEventListener('drop', dragDrop);
-}
-
-function createText() {
-  if (currentSection === null) return;
-
-  textCount++;
-  const text = document.createElement('input');
-  text.classList.add('text');
-  text.setAttribute('id', `text-${textCount}`);
-  currentSection.setAttribute('draggable', 'true');
-  if (
-    currentSection.lastElementChild &&
-    currentSection.lastElementChild.classList.contains('column')
-  ) {
-    currentSection.lastElementChild.appendChild(text);
+  function extractNumericPart(inputString) {
+    const match = inputString.match(/[a-zA-Z0-9]+-(\d+)/);
+    return match ? parseInt(match[1]) : null;
   }
 
-  text.addEventListener('dragstart', dragStart);
-  text.addEventListener('dragenter', dragEnter);
-  text.addEventListener('dragover', dragOver);
-  text.addEventListener('dragleave', dragLeave);
-  text.addEventListener('drop', dragDrop);
-}
+  // const parent = addedElements.findLast(
+  //   (element) => extractNumericPart(e.target.id) === element.id,
+  // );
 
-sectionBtn.addEventListener('click', createSection);
-columnBtn.addEventListener('click', createColumn);
-textBtn.addEventListener('click', createText);
-output.addEventListener('click', selectElement);
+  const parent = addedElements.findLast(
+    (element) => extractNumericPart(clickedElement.id) === element.id,
+  );
+
+  
+  editElement(parent, {'padding': `2px`})
+});
+
+sectionBtn.addEventListener('click', () => {
+  const section = new SectionElement(addedElements.length, addedElements[0]);
+
+  addedElements.push(section);
+
+  currrentElement = main.appendChild(section.createElement());
+});
+
+columnBtn.addEventListener('click', () => {
+  if (!(addedElements[addedElements.length - 1] instanceof SectionElement)) {
+    const parent = addedElements.findLast(
+      (element) => element instanceof SectionElement,
+    );
+
+    if (parent === undefined) return;
+
+    const column = new ColumnElement(addedElements.length, parent);
+
+    addedElements.push(column);
+
+    currrentElement = currrentElement.parentElement.appendChild(
+      column.createElement(),
+    );
+  } else {
+    const column = new ColumnElement(
+      addedElements.length,
+      addedElements[addedElements.length - 1],
+      {
+        'background-color': '#000',
+      },
+    );
+
+    addedElements.push(column);
+
+    currrentElement = currrentElement.appendChild(column.createElement());
+  }
+});
+
+textBtn.addEventListener('click', () => {
+  if (!(addedElements[addedElements.length - 1] instanceof ColumnElement)) {
+    const parent = addedElements.findLast(
+      (element) => element instanceof ColumnElement,
+    );
+    if (parent === undefined) return;
+
+    const text = new TextElement(addedElements.length, parent, '');
+
+    addedElements.push(text);
+
+    currrentElement = currrentElement.parentElement.appendChild(
+      text.createElement(),
+    );
+  } else {
+    const text = new TextElement(
+      addedElements.length,
+      addedElements[addedElements.length - 1],
+      'test',
+      { color: '#FF0000' },
+    );
+
+    addedElements.push(text);
+
+    currrentElement = currrentElement.appendChild(text.createElement());
+  }
+});
+
+buttonBtn.addEventListener('click', () => {
+  if (!(addedElements[addedElements.length - 1] instanceof ColumnElement)) {
+    const parent = addedElements.findLast(
+      (element) => element instanceof ColumnElement,
+    );
+    if (parent === undefined) return;
+
+    const button = new ButtonElement(addedElements.length, parent, '');
+
+    addedElements.push(button);
+
+    currrentElement = currrentElement.parentElement.appendChild(
+      button.createElement(),
+    );
+  } else {
+    const button = new ButtonElement(
+      addedElements.length,
+      addedElements[addedElements.length - 1],
+      // eslint-disable-next-line
+      '<a style=\"color:#fff\" href=\"https://www.google.com\" target=\"_blank\">Button 1</a>',
+      { color: '#FF0000' },
+    );
+
+    addedElements.push(button);
+
+    currrentElement = currrentElement.appendChild(button.createElement());
+  }
+});
+
+imageBtn.addEventListener('click', () => {
+  if (!(addedElements[addedElements.length - 1] instanceof ColumnElement)) {
+    const parent = addedElements.findLast(
+      (element) => element instanceof ColumnElement,
+    );
+    if (parent === undefined) return;
+
+    const image = new ImageElement(addedElements.length, parent);
+
+    addedElements.push(image);
+
+    currrentElement = currrentElement.parentElement.appendChild(
+      image.createElement(),
+    );
+  } else {
+    const image = new ImageElement(
+      addedElements.length,
+      addedElements[addedElements.length - 1],
+      { src: 'https://picsum.photos/200' },
+    );
+
+    addedElements.push(image);
+
+    currrentElement = currrentElement.appendChild(image.createElement());
+  }
+});

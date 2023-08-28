@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { MJMLJsonObject } from 'mjml-core';
 
 export default abstract class MJMLNode {

@@ -1,20 +1,49 @@
-.wrapper {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+    .section,
+    .column {
+        @apply flex max-h-full min-h-16 border border-primary mb-2 w-full
+    }
+
+    .active {
+        @apply border-2 border-secondary
+    }
+}
+
+/* .wrapper {
     display: flex;
     justify-content: space-between;
+    overflow: hidden;
 }
 
 .menu {
     display: grid;
+    gap: 10px;
+    grid-template-rows: repeat(8, 100px);
+    grid-template-columns: repeat(4, 1fr);
+}
+
+button {
+    cursor: pointer;
 }
 
 .output {
-    height: 100vh;
+    min-height: calc(100vh - 20px);
     width: 600px;
     border: 1px solid black;
+    overflow: scroll;
 }
 
 .drag-over {
     border: dashed 4px green;
+}
+
+.body {
+    cursor: pointer;
 }
 
 .section {
@@ -23,7 +52,6 @@
     min-height: 200px;
     border: 1px solid black;
     padding: 10px;
-    cursor: move;
 }
 
 .column {
@@ -32,12 +60,22 @@
     min-height: 200px;
     border: 1px solid black;
     padding: 10px;
-    cursor: move;
 }
 
 .text {
     min-height: 100px;
     width: 100%;
     border: 1px solid black;
-    cursor: move;
 }
+
+.button {
+    min-height: 100px;
+    width: 100%;
+    border: 1px solid black;
+}
+
+.image {
+    min-height: 100px;
+    width: 100%;
+    border: 1px solid black;
+} */
