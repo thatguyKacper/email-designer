@@ -29,11 +29,14 @@ class TestClass {
 
   static addedElements: TestClass[] = [];
 
-  public createElement() {
+  public createElement(attributes?: string) {
     const element = document.createElement('div');
     element.classList.add(this.type);
     element.setAttribute('draggable', 'true');
     element.setAttribute('id', `${this.type}-${this.id}`);
+    if (attributes) {
+      element.setAttribute('style', attributes)
+    }
 
     return element;
   }

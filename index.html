@@ -9,7 +9,7 @@
 
 <body>
 
-  <div class="wrapper flex justify-between h-screen w-screen">
+  <div class="wrapper flex h-screen w-screen">
     <div class="menu gap-1">
       <!-- <button type="button" id="add-section">Add Section</button>
       <button type="button" id="add-column">Add Column</button>
@@ -23,7 +23,7 @@
         <div class="collapse-title text-xl font-medium">
           Section
         </div>
-        <div class="collapse-content">
+        <form class="collapse-content" id="section-form">
           <div class="flex flex-col w-full">
             Background
             <div class="grid h-full card bg-base-300 rounded-box place-items-center">
@@ -32,13 +32,14 @@
                   <label class="label">
                     <span class="label-text">Color</span>
                   </label>
-                  <input type="color" class="input input-bordered w-full max-w-xs" />
+                  <input type="color" class="input input-bordered w-full max-w-xs" name="background-color" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">URL</span>
                   </label>
-                  <input type="text" placeholder="" class="input input-bordered w-full max-w-xs" />
+                  <input type="text" placeholder="" class="input input-bordered w-full max-w-xs"
+                    name="background-url" />
                 </div>
               </div>
             </div>
@@ -50,31 +51,33 @@
                   <label class="label">
                     <span class="label-text">Padding</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" id="padding-section" />
+                  <input type="range" max="600" value="20" class="section-input range range-accent" id="padding-section"
+                    name="padding" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="section-input range range-accent"
+                    name="padding-right" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="range range-accent" name="padding-left" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="range range-accent" name="padding-top" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="range range-accent" name="padding-bottom" />
                 </div>
               </div>
             </div>
@@ -86,37 +89,37 @@
                   <label class="label">
                     <span class="label-text">Border</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-right" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-left" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-top" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-bottom" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Radius</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" max="100" value="3" class="range range-accent" name="border-radius" />
                 </div>
               </div>
             </div>
@@ -124,11 +127,11 @@
           <div class="divider"></div>
           <!-- <div class="grid h-20 card bg-base-300 rounded-box place-items-center"> -->
           <div class="flex justify-between">
-            <button class="btn btn-primary" id="edit-section">Edit Section</button>
-            <button class="btn btn-primary" id="add-section">Add Section</button>
+            <button class="btn btn-primary" type="submit" id="edit-section">Edit Section</button>
+            <button class="btn btn-primary" type="button" id="add-section">Add Section</button>
           </div>
           <!-- </div> -->
-        </div>
+        </form>
       </div>
       <!-- column -->
       <div class="collapse collapse-arrow bg-base-200">
@@ -163,31 +166,31 @@
                   <label class="label">
                     <span class="label-text">Padding</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
               </div>
             </div>
@@ -199,37 +202,37 @@
                   <label class="label">
                     <span class="label-text">Border</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Radius</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
               </div>
             </div>
@@ -243,7 +246,7 @@
         </div>
       </div>
       <!-- text -->
-      <div class="collapse collapse-arrow bg-base-200">
+      <!-- <div class="collapse collapse-arrow bg-base-200">
         <input type="radio" name="my-accordion-2" checked="checked" />
         <div class="collapse-title text-xl font-medium">
           Text
@@ -275,31 +278,31 @@
                   <label class="label">
                     <span class="label-text">Padding</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
               </div>
             </div>
@@ -311,37 +314,37 @@
                   <label class="label">
                     <span class="label-text">Border</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Radius</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
               </div>
             </div>
@@ -353,9 +356,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- button -->
-      <div class="collapse collapse-arrow bg-base-200">
+      <!-- <div class="collapse collapse-arrow bg-base-200">
         <input type="radio" name="my-accordion-2" checked="checked" />
         <div class="collapse-title text-xl font-medium">
           Button
@@ -387,31 +390,31 @@
                   <label class="label">
                     <span class="label-text">Padding</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
               </div>
             </div>
@@ -423,37 +426,37 @@
                   <label class="label">
                     <span class="label-text">Border</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Radius</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
               </div>
             </div>
@@ -465,9 +468,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- image -->
-      <div class="collapse collapse-arrow bg-base-200">
+      <!-- <div class="collapse collapse-arrow bg-base-200">
         <input type="radio" name="my-accordion-2" checked="checked" />
         <div class="collapse-title text-xl font-medium">
           Image
@@ -499,31 +502,31 @@
                   <label class="label">
                     <span class="label-text">Padding</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
               </div>
             </div>
@@ -535,37 +538,37 @@
                   <label class="label">
                     <span class="label-text">Border</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Radius</span>
                   </label>
-                  <input type="range" min="0" max="600" value="1" class="range range-accent" />
+                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
                 </div>
               </div>
             </div>
@@ -577,7 +580,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="menu">
         <div class="join justify-between">
           <button class="btn btn-secondary" id="preview">Preview</button>
@@ -590,8 +593,8 @@
     </div>
 
     <!-- <div class="output w-[600px] border bg-white"></div> -->
-    <div class="border border-accent h-full w-[600px] flex justify-center">
-      <div class="output w-full h-full px-1 py-1 overflow-y-scroll"></div>
+    <div class="border-2 border-accent h-full w-full flex justify-center flex-1 min-w-[600px]">
+      <div class="output w-full h-full px-2 py-2 max-w-[600px] overflow-y-auto"></div>
     </div>
   </div>
 

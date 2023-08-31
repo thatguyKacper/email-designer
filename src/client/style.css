@@ -5,8 +5,11 @@
 @layer components {
 
     .section,
-    .column {
-        @apply flex max-h-full min-h-16 border border-primary mb-2 w-full
+    .column,
+    .text,
+    .image,
+    .button {
+        @apply flex max-h-full min-h-16 border-2 border-primary p-8 mb-2 w-full
     }
 
     .active {

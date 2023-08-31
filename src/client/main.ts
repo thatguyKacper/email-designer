@@ -11,6 +11,7 @@ import ImageElement from './components/ImageElement';
 const previewBtn = document.querySelector('#preview') as HTMLButtonElement;
 const codeBtn = document.querySelector('#code') as HTMLButtonElement;
 const sectionBtn = document.querySelector('#add-section') as HTMLButtonElement;
+const sectionEditBtn = document.querySelector('#edit-section') as HTMLButtonElement;
 const columnBtn = document.querySelector('#add-column') as HTMLButtonElement;
 const textBtn = document.querySelector('#add-text') as HTMLButtonElement;
 const buttonBtn = document.querySelector('#add-button') as HTMLButtonElement;
@@ -80,12 +81,43 @@ function editElement(element, attributes) {
   addedElements[element.id] = obj;
 }
 
-// test
+const sectionForm = document.querySelector('#section-form');
 
-const p = document.getElementById('padding-section')
+function editForm(form) {
+  let formData = {};
 
-p.addEventListener('input', (e)=> e.target.value)
+  const inputs = Array.from(form.elements).filter(tag => ["input"].includes(tag.tagName.toLowerCase()))
 
+  // console.log(inputs);
+  
+
+  inputs.forEach(element => {
+    if (element.value === '' || element.value === '0') {
+      return
+    } else if (element.name.includes('padding')) {
+      formData[element.name] = `${element.value}px`;
+    } else if(element.name.includes('border')) {
+      formData[element.name] = `${element.value}px solid black`;
+    } else if(element.name.includes('height')) {
+      formData[element.name] = `${element.value}px`;
+    } else if(element.name.includes('width')) {
+      formData[element.name] = `${element.value}px`;
+    } else {
+      formData[element.name] = element.value;
+    }
+
+    // console.log(element.name, element.value);
+  });
+
+  // console.log(formData);
+  editElement(clickedElement, formData)  
+}
+
+sectionEditBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  editForm(sectionForm)
+})
 
 // end test
 
@@ -98,24 +130,31 @@ output.addEventListener('click', (e) => {
     return match ? parseInt(match[1]) : null;
   }
 
-  // const parent = addedElements.findLast(
-  //   (element) => extractNumericPart(e.target.id) === element.id,
-  // );
-
   const parent = addedElements.findLast(
-    (element) => extractNumericPart(clickedElement.id) === element.id,
+    (element) => extractNumericPart(e.target.id) === element.id,
   );
+
+  clickedElement = parent
+  
+  // const parent = addedElements.findLast(
+  //   (element) => extractNumericPart(clickedElement.id) === element.id,
+  // );
 
   
   editElement(parent, {'padding': `2px`})
 });
 
 sectionBtn.addEventListener('click', () => {
-  const section = new SectionElement(addedElements.length, addedElements[0]);
+  const section = new SectionElement(addedElements.length, addedElements[0], {'background-color': '#000'});
 
   addedElements.push(section);
 
-  currrentElement = main.appendChild(section.createElement());
+  currrentElement = main.appendChild(section.createElement('background-color: #000;'));
+});
+
+sectionEditBtn.addEventListener('click', () => {
+  
+
 });
 
 columnBtn.addEventListener('click', () => {
@@ -131,7 +170,7 @@ columnBtn.addEventListener('click', () => {
     addedElements.push(column);
 
     currrentElement = currrentElement.parentElement.appendChild(
-      column.createElement(),
+      column.createElement('background-color: #FFF;'),
     );
   } else {
     const column = new ColumnElement(
@@ -144,7 +183,7 @@ columnBtn.addEventListener('click', () => {
 
     addedElements.push(column);
 
-    currrentElement = currrentElement.appendChild(column.createElement());
+    currrentElement = currrentElement.appendChild(column.createElement('background-color: #FFF;'));
   }
 });
 
