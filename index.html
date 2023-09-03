@@ -9,14 +9,8 @@
 
 <body>
 
-  <div class="wrapper flex h-screen w-screen">
+  <div class="wrapper flex">
     <div class="menu gap-1">
-      <!-- <button type="button" id="add-section">Add Section</button>
-      <button type="button" id="add-column">Add Column</button>
-      <button type="button" id="add-text">Add Text</button>
-      <button type="button" id="add-button">Add Button</button>
-      <button type="button" id="add-image">Add Image</button> -->
-      <!-- </div> -->
       <!-- section -->
       <div class="collapse collapse-arrow bg-base-200">
         <input type="radio" name="my-accordion-2" checked="checked" />
@@ -32,7 +26,8 @@
                   <label class="label">
                     <span class="label-text">Color</span>
                   </label>
-                  <input type="color" class="input input-bordered w-full max-w-xs" name="background-color" />
+                  <input type="color" value="#FFFFFF" class="input input-bordered w-full max-w-xs"
+                    name="background-color" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
@@ -40,6 +35,52 @@
                   </label>
                   <input type="text" placeholder="" class="input input-bordered w-full max-w-xs"
                     name="background-url" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Position</span>
+                  </label>
+                  <select class="input input-bordered w-full max-w-xs" name="background-position">
+                    <option value="center">Center</option>
+                    <option value="top">Top</option>
+                    <option value="bottom">Bottom</option>
+                    <option value="left">Left</option>
+                    <option value="right">Right</option>
+                  </select>
+                  <select class="input input-bordered w-full max-w-xs" name="background-repeat">
+                    <option value="no-repeat">No-Repeat</option>
+                    <option value="repeat-x">Repeat-X</option>
+                    <option value="repeat-y">Repeat-Y</option>
+                    <option value="repeat">Repeat</option>
+                    <option value="space">Space</option>
+                    <option value="round">Round</option>
+                  </select>
+                  <select class="input input-bordered w-full max-w-xs" name="background-size">
+                    <option value="cover">Cover</option>
+                    <option value="contain">Contain</option>
+                  </select>
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Full Width</span>
+                  </label>
+                  <select class="input input-bordered w-full max-w-xs" name="full-width">
+                    <option value="full-width">Yes</option>
+                    <option value="">No</option>
+                  </select>
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Text ALign</span>
+                  </label>
+                  <select class="input input-bordered w-full max-w-xs" name="text-align">
+                    <option value="center">Center</option>
+                    <option value="start">Start</option>
+                    <option value="end">End</option>
+                    <option value="left">Left</option>
+                    <option value="right">Right</option>
+                    <option value="justify">Justify</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -51,7 +92,7 @@
                   <label class="label">
                     <span class="label-text">Padding</span>
                   </label>
-                  <input type="range" max="600" value="20" class="section-input range range-accent" id="padding-section"
+                  <input type="range" max="600" value="10" class="section-input range range-accent" id="padding-section"
                     name="padding" />
                 </div>
                 <div class="form-control w-full max-w-xs">
@@ -115,6 +156,12 @@
                   </label>
                   <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-bottom" />
                 </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            Border Radius
+            <div class="grid h-20 card bg-base-300 rounded-box place-items-center">
+              <div class="join">
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Radius</span>
@@ -139,22 +186,24 @@
         <div class="collapse-title text-xl font-medium">
           Column
         </div>
-        <div class="collapse-content">
+        <form class="collapse-content" id="column-form">
           <div class="flex flex-col w-full">
             Background
-            <div class="grid h-full card bg-base-300 rounded-box place-items-center">
+            <div class="grid h-full card bg-base-300 rounded-box">
               <div class="join">
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Color</span>
                   </label>
-                  <input type="color" class="input input-bordered w-full max-w-xs" />
+                  <input type="color" value="#FFFFFF" class="input input-bordered w-full max-w-xs"
+                    name="background-color" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
-                    <span class="label-text">URL</span>
+                    <span class="label-text">Inner Background Color</span>
                   </label>
-                  <input type="text" placeholder="" class="input input-bordered w-full max-w-xs" />
+                  <input type="color" value="#FFFFFF" class="input input-bordered w-full max-w-xs"
+                    name="inner-background-color" />
                 </div>
               </div>
             </div>
@@ -166,31 +215,33 @@
                   <label class="label">
                     <span class="label-text">Padding</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="10" class="column-input range range-accent" id="padding-column"
+                    name="padding" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="column-input range range-accent"
+                    name="padding-right" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="range range-accent" name="padding-left" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="range range-accent" name="padding-top" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="range range-accent" name="padding-bottom" />
                 </div>
               </div>
             </div>
@@ -202,57 +253,252 @@
                   <label class="label">
                     <span class="label-text">Border</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-right" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-left" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-top" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-bottom" />
+                </div>
+              </div>
+            </div>
+            Inner Border (requires padding)
+            <div class="grid h-20 card bg-base-300 rounded-box place-items-center">
+              <div class="join">
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Border</span>
+                  </label>
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="inner-border" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
-                    <span class="label-text">Border Radius</span>
+                    <span class="label-text">Border Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent"
+                    name="inner-border-right" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Border Left</span>
+                  </label>
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="inner-border-left" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Border Top</span>
+                  </label>
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="inner-border-top" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Border Bottom</span>
+                  </label>
+                  <input type="range" max="10" step="1" value="0" class="range range-accent"
+                    name="inner-border-bottom" />
                 </div>
               </div>
             </div>
             <div class="divider"></div>
+            Border Radius
             <div class="grid h-20 card bg-base-300 rounded-box place-items-center">
               <div class="join">
-                <button class="btn btn-primary" id="add-column">Add Column</button>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Border Radius</span>
+                  </label>
+                  <input type="range" max="100" value="3" class="range range-accent" name="border-radius" />
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <!-- Width
+            <div class="grid h-full card bg-base-300 rounded-box">
+              <div class="join">
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Width</span>
+                  </label>
+                  <input type="number" max="600" value="600" class="input input-bordered w-full max-w-xs"
+                    name="width" />
+                </div>
+              </div>
+            </div> -->
+            <div class="divider"></div>
+            Vertical Align
+            <div class="grid h-full card bg-base-300 rounded-box">
+              <div class="join">
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Vertical Align</span>
+                  </label>
+                  <select class="input input-bordered w-full max-w-xs" name="vertical-align">
+                    <option value="top  ">top </option>
+                    <option value="baseline">baseline</option>
+                    <option value="sub">sub</option>
+                    <option value="super">super</option>
+                    <option value="text-top">text-top</option>
+                    <option value="text-bottom">text-bottom</option>
+                    <option value="middle">middle</option>
+                    <option value="bottom">bottom</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+          <div class="divider"></div>
+          <!-- <div class="grid h-20 card bg-base-300 rounded-box place-items-center"> -->
+          <div class="flex justify-between">
+            <button class="btn btn-primary" type="submit" id="edit-column">Edit Column</button>
+            <button class="btn btn-primary" type="button" id="add-column">Add Column</button>
+          </div>
+          <!-- </div> -->
+        </form>
       </div>
       <!-- text -->
-      <!-- <div class="collapse collapse-arrow bg-base-200">
+      <div class="collapse collapse-arrow bg-base-200">
         <input type="radio" name="my-accordion-2" checked="checked" />
         <div class="collapse-title text-xl font-medium">
           Text
         </div>
-        <div class="collapse-content">
+        <form class="collapse-content" id="text-form">
           <div class="flex flex-col w-full">
+            Content
+            <div class="grid h-full card bg-base-300 rounded-box place-items-center">
+              <div class="join">
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Content</span>
+                  </label>
+                  <input type="text" class="input input-bordered w-full max-w-xs" name="content" />
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            Text
+            <div class="grid h-20 card bg-base-300 rounded-box place-items-center">
+              <div class="join">
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Color</span>
+                  </label>
+                  <input type="color" class="input input-bordered w-full max-w-xs" name="color" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Font Family</span>
+                  </label>
+                  <input type="text" value="Ubuntu, Helvetica, Arial, sans-serif"
+                    class="input input-bordered w-full max-w-xs" name="font-family" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Font Size</span>
+                  </label>
+                  <input type="range" max="64" value="13" class="text-input range range-accent"
+                    class="input input-bordered w-full max-w-xs" name="font-size" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Font Style</span>
+                  </label>
+                  <select class="input input-bordered w-full max-w-xs" name="font-style">
+                    <option value="normal">Normal </option>
+                    <option value="italic">Italic</option>
+                    <option value="oblique">Oblique</option>
+                  </select>
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Font Weight</span>
+                  </label>
+                  <input type="range" max="900" step="100" value="400" class="text-input range range-accent"
+                    class="input input-bordered w-full max-w-xs" name="font-weight" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Line Height</span>
+                  </label>
+                  <input type="range" max="100" step="1" value="1" class="text-input range range-accent"
+                    class="input input-bordered w-full max-w-xs" name="line-height" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Letter Spacing</span>
+                  </label>
+                  <input type="number" max="10" min="-10" value="" class="text-input range range-accent"
+                    class="input input-bordered w-full max-w-xs" name="letter-spacing" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Text Decoration</span>
+                  </label>
+                  <select class="input input-bordered w-full max-w-xs" name="text-decoration">
+                    <option value="none">None </option>
+                    <option value="underline">Underline </option>
+                    <option value="overline">Overline</option>
+                    <option value="line-through">Line Through</option>
+                  </select>
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Text Transform</span>
+                  </label>
+                  <select class="input input-bordered w-full max-w-xs" name="text-transform">
+                    <option value="">None </option>
+                    <option value="uppercase">Uppercase </option>
+                    <option value="lowercase">Lowercase</option>
+                    <option value="capitalize">Capitalize</option>
+                  </select>
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Text Align</span>
+                  </label>
+                  <select class="input input-bordered w-full max-w-xs" name="align">
+                    <option value="center">Center</option>
+                    <option value="start">Start</option>
+                    <option value="end">End</option>
+                    <option value="left">Left</option>
+                    <option value="right">Right</option>
+                    <option value="justify">Justify</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            Height
+            <div class="grid h-full card bg-base-300 rounded-box">
+              <div class="join">
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Height</span>
+                  </label>
+                  <input type="number" max="1200" min="0" value="" class="input input-bordered w-full max-w-xs"
+                    name="height" />
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
             Background
             <div class="grid h-full card bg-base-300 rounded-box place-items-center">
               <div class="join">
@@ -260,13 +506,8 @@
                   <label class="label">
                     <span class="label-text">Color</span>
                   </label>
-                  <input type="color" class="input input-bordered w-full max-w-xs" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">URL</span>
-                  </label>
-                  <input type="text" placeholder="" class="input input-bordered w-full max-w-xs" />
+                  <input type="color" value="#FFFFFF" class="input input-bordered w-full max-w-xs"
+                    name="background-color" />
                 </div>
               </div>
             </div>
@@ -278,219 +519,90 @@
                   <label class="label">
                     <span class="label-text">Padding</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="10" class="text-input range range-accent" name="padding" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="text-input range range-accent" name="padding-right" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="range range-accent" name="padding-left" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="range range-accent" name="padding-top" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="range range-accent" name="padding-bottom" />
                 </div>
-              </div>
-            </div>
-            <div class="divider"></div>
-            Border
-            <div class="grid h-20 card bg-base-300 rounded-box place-items-center">
-              <div class="join">
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border Right</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border Left</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border Top</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border Bottom</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border Radius</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-              </div>
-            </div>
-            <div class="divider"></div>
-            <div class="grid h-20 card bg-base-300 rounded-box place-items-center">
-              <div class="join">
-                <button class="btn btn-primary" id="add-text">Add Text</button>
               </div>
             </div>
           </div>
-        </div>
-      </div> -->
-      <!-- button -->
-      <!-- <div class="collapse collapse-arrow bg-base-200">
-        <input type="radio" name="my-accordion-2" checked="checked" />
-        <div class="collapse-title text-xl font-medium">
-          Button
-        </div>
-        <div class="collapse-content">
-          <div class="flex flex-col w-full">
-            Background
-            <div class="grid h-full card bg-base-300 rounded-box place-items-center">
-              <div class="join">
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Color</span>
-                  </label>
-                  <input type="color" class="input input-bordered w-full max-w-xs" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">URL</span>
-                  </label>
-                  <input type="text" placeholder="" class="input input-bordered w-full max-w-xs" />
-                </div>
-              </div>
-            </div>
-            <div class="divider"></div>
-            Padding
-            <div class="grid h-20 card bg-base-300 rounded-box place-items-center">
-              <div class="join">
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Padding</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Padding Right</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Padding Left</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Padding Top</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Padding Bottom</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-              </div>
-            </div>
-            <div class="divider"></div>
-            Border
-            <div class="grid h-20 card bg-base-300 rounded-box place-items-center">
-              <div class="join">
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border Right</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border Left</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border Top</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border Bottom</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border Radius</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-              </div>
-            </div>
-            <div class="divider"></div>
-            <div class="grid h-20 card bg-base-300 rounded-box place-items-center">
-              <div class="join">
-                <button class="btn btn-primary" id="add-button">Add Button</button>
-              </div>
-            </div>
+          <div class="divider"></div>
+          <!-- <div class="grid h-20 card bg-base-300 rounded-box place-items-center"> -->
+          <div class="flex justify-between">
+            <button class="btn btn-primary" type="submit" id="edit-text">Edit Text</button>
+            <button class="btn btn-primary" type="button" id="add-text">Add Text</button>
           </div>
-        </div>
-      </div> -->
+          <!-- </div> -->
+        </form>
+      </div>
       <!-- image -->
-      <!-- <div class="collapse collapse-arrow bg-base-200">
+      <div class="collapse collapse-arrow bg-base-200">
         <input type="radio" name="my-accordion-2" checked="checked" />
         <div class="collapse-title text-xl font-medium">
           Image
         </div>
-        <div class="collapse-content">
+        <form class="collapse-content" id="column-form">
           <div class="flex flex-col w-full">
-            Background
-            <div class="grid h-full card bg-base-300 rounded-box place-items-center">
+            Image
+            <div class="grid h-full card bg-base-300 rounded-box">
               <div class="join">
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
-                    <span class="label-text">Color</span>
+                    <span class="label-text">Src</span>
                   </label>
-                  <input type="color" class="input input-bordered w-full max-w-xs" />
+                  <input type="text" value="" class="input input-bordered w-full max-w-xs" name="src" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
-                    <span class="label-text">URL</span>
+                    <span class="label-text">Alt</span>
                   </label>
-                  <input type="text" placeholder="" class="input input-bordered w-full max-w-xs" />
+                  <input type="text" value="" class="input input-bordered w-full max-w-xs" name="alt" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Href</span>
+                  </label>
+                  <input type="text" value="" class="input input-bordered w-full max-w-xs" name="href" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Name</span>
+                  </label>
+                  <input type="text" value="" class="input input-bordered w-full max-w-xs" name="name" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Title</span>
+                  </label>
+                  <input type="text" value="" class="input input-bordered w-full max-w-xs" name="title" />
+                </div>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Rel</span>
+                  </label>
+                  <input type="text" value="" class="input input-bordered w-full max-w-xs" name="rel" />
                 </div>
               </div>
             </div>
@@ -502,31 +614,33 @@
                   <label class="label">
                     <span class="label-text">Padding</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="100" value="10" class="column-input range range-accent" id="padding-column"
+                    name="padding" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="column-input range range-accent"
+                    name="padding-right" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="range range-accent" name="padding-left" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="range range-accent" name="padding-top" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Padding Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="600" value="0" class="range range-accent" name="padding-bottom" />
                 </div>
               </div>
             </div>
@@ -538,62 +652,93 @@
                   <label class="label">
                     <span class="label-text">Border</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Right</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-right" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Left</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-left" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Top</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-top" />
                 </div>
                 <div class="form-control w-full max-w-xs">
                   <label class="label">
                     <span class="label-text">Border Bottom</span>
                   </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label">
-                    <span class="label-text">Border Radius</span>
-                  </label>
-                  <input type="range" min="0" max="600" value="0" class="range range-accent" />
+                  <input type="range" max="10" step="1" value="0" class="range range-accent" name="border-bottom" />
                 </div>
               </div>
             </div>
             <div class="divider"></div>
+            Border Radius
             <div class="grid h-20 card bg-base-300 rounded-box place-items-center">
               <div class="join">
-                <button class="btn btn-primary" id="add-image">Add Image</button>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Border Radius</span>
+                  </label>
+                  <input type="range" max="100" value="3" class="range range-accent" name="border-radius" />
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            Width
+            <div class="grid h-full card bg-base-300 rounded-box">
+              <div class="join">
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Width</span>
+                  </label>
+                  <input type="number" max="600" min="0" value="" class="input input-bordered w-full max-w-xs"
+                    name="width" />
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            Align
+            <div class="grid h-full card bg-base-300 rounded-box">
+              <div class="join">
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Align</span>
+                  </label>
+                  <select class="input input-bordered w-full max-w-xs" name="align">
+                    <option value="center">center</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div> -->
+          <div class="divider"></div>
+          <!-- <div class="grid h-20 card bg-base-300 rounded-box place-items-center"> -->
+          <div class="flex justify-between">
+            <button class="btn btn-primary" type="submit" id="edit-image">Edit Image</button>
+            <button class="btn btn-primary" type="button" id="add-image">Add Image</button>
+          </div>
+          <!-- </div> -->
+        </form>
+      </div>
+      <!-- Menu -->
       <div class="menu">
         <div class="join justify-between">
           <button class="btn btn-secondary" id="preview">Preview</button>
           <button class="btn btn-secondary" id="code">Code</button>
         </div>
       </div>
-      <!-- <div>
-      <button type="button" id="preview">Preview</button>
-      <button type="button" id="code">Code</button> -->
     </div>
 
-    <!-- <div class="output w-[600px] border bg-white"></div> -->
-    <div class="border-2 border-accent h-full w-full flex justify-center flex-1 min-w-[600px]">
+    <div class="border-2 border-accent h-screen w-full flex justify-center flex-1 min-w-[600px]">
       <div class="output w-full h-full px-2 py-2 max-w-[600px] overflow-y-auto"></div>
     </div>
   </div>

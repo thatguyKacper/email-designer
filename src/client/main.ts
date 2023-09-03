@@ -3,20 +3,29 @@ import SectionElement from './components/SectionElement.js';
 import ColumnElement from './components/ColumnElement.js';
 import TextElement from './components/TextElement.js';
 import DragAndDropElement from './components/DragAndDropElement';
-import TestClass from './components/TestClass';
+import ElementClass from './components/Element';
 import BodyElement from './components/BodyElement';
 import ButtonElement from './components/ButtonElement';
 import ImageElement from './components/ImageElement';
+import generateEmail from './js/generateEmail';
+import editElement from './js/editElement';
+import editForm from './js/editForm';
 
 const previewBtn = document.querySelector('#preview') as HTMLButtonElement;
 const codeBtn = document.querySelector('#code') as HTMLButtonElement;
 const sectionBtn = document.querySelector('#add-section') as HTMLButtonElement;
 const sectionEditBtn = document.querySelector('#edit-section') as HTMLButtonElement;
 const columnBtn = document.querySelector('#add-column') as HTMLButtonElement;
+const columnEditBtn = document.querySelector('#edit-column') as HTMLButtonElement;
 const textBtn = document.querySelector('#add-text') as HTMLButtonElement;
+const textEditBtn = document.querySelector('#edit-text') as HTMLButtonElement;
 const buttonBtn = document.querySelector('#add-button') as HTMLButtonElement;
 const imageBtn = document.querySelector('#add-image') as HTMLButtonElement;
+const imageEditBtn = document.querySelector('#edit-image') as HTMLButtonElement;
 const output = document.querySelector('.output') as HTMLElement;
+const sectionForm = document.querySelector('#section-form') as HTMLInputElement;
+const columnForm = document.querySelector('#column-form') as HTMLInputElement;
+const textForm = document.querySelector('#text-form') as HTMLInputElement;
 
 const body = new BodyElement(0).createElement();
 const main = output.appendChild(body);
@@ -24,102 +33,42 @@ let currrentElement = output.appendChild(body);
 let clickedElement;
 
 // Create a global array to store added elements
-const addedElements: TestClass[] = [new BodyElement(0)];
+const addedElements: ElementClass[] = [new BodyElement(0)];
 
-// Function to generate the components object
-function generateComponents() {
-  const components = addedElements.map((element) => {
-    const { type, attributes, content } = element;
-    return { type, attributes, content };
-  });
-
-  return components;
-  // console.log({ components });
-}
-
-async function generateEmail(type) {
-  const components = generateComponents();
-
-  try {
-    const response = await fetch('/api/v1/designer/generate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ components }),
-    });
-
-    console.log(JSON.stringify({ components }));
-    if (response.ok) {
-      const htmlResponse = await response.text();
-      // console.log(htmlResponse);
-      if (type === 'HTML') {
-        output.innerHTML = htmlResponse;
-      } else {
-        output.innerText = htmlResponse;
-      }
-    } else {
-      console.error('Error:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-previewBtn.addEventListener('click', () => generateEmail('HTML'));
-codeBtn.addEventListener('click', () => generateEmail('CODE'));
-
-function editElement(element, attributes) { 
-  const obj ={
-    ...element,
-    attributes: {
-      ...element.attributes,
-      ...attributes,
-    },
-  };
-  console.log(obj);
-  addedElements[element.id] = obj;
-}
-
-const sectionForm = document.querySelector('#section-form');
-
-function editForm(form) {
-  let formData = {};
-
-  const inputs = Array.from(form.elements).filter(tag => ["input"].includes(tag.tagName.toLowerCase()))
-
-  // console.log(inputs);
-  
-
-  inputs.forEach(element => {
-    if (element.value === '' || element.value === '0') {
-      return
-    } else if (element.name.includes('padding')) {
-      formData[element.name] = `${element.value}px`;
-    } else if(element.name.includes('border')) {
-      formData[element.name] = `${element.value}px solid black`;
-    } else if(element.name.includes('height')) {
-      formData[element.name] = `${element.value}px`;
-    } else if(element.name.includes('width')) {
-      formData[element.name] = `${element.value}px`;
-    } else {
-      formData[element.name] = element.value;
-    }
-
-    // console.log(element.name, element.value);
-  });
-
-  // console.log(formData);
-  editElement(clickedElement, formData)  
-}
+previewBtn.addEventListener('click', () => generateEmail(addedElements, output, 'HTML'));
+codeBtn.addEventListener('click', () => generateEmail(addedElements, output, 'CODE'));
 
 sectionEditBtn.addEventListener('click', (e) => {
   e.preventDefault();
 
-  editForm(sectionForm)
+  const formData = editForm(sectionForm)
+
+  editElement(addedElements, clickedElement, formData.optionsObj)
 })
 
-// end test
+columnEditBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const formData = editForm(columnForm)
+
+  editElement(addedElements, clickedElement, formData.optionsObj)
+})
+
+textEditBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const formData = editForm(textForm)
+
+  editElement(addedElements, clickedElement, formData.optionsObj)
+})
+
+imageEditBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const formData = editForm(textForm)
+
+  editElement(addedElements, clickedElement, formData.optionsObj)
+})
 
 output.addEventListener('click', (e) => {
   clickedElement = e.target
@@ -134,30 +83,26 @@ output.addEventListener('click', (e) => {
     (element) => extractNumericPart(e.target.id) === element.id,
   );
 
-  clickedElement = parent
-  
-  // const parent = addedElements.findLast(
-  //   (element) => extractNumericPart(clickedElement.id) === element.id,
-  // );
-
-  
-  editElement(parent, {'padding': `2px`})
+  clickedElement = parent || null
 });
 
 sectionBtn.addEventListener('click', () => {
-  const section = new SectionElement(addedElements.length, addedElements[0], {'background-color': '#000'});
+  const formData = sectionBtn.parentElement.parentElement;
 
-  addedElements.push(section);
-
-  currrentElement = main.appendChild(section.createElement('background-color: #000;'));
-});
-
-sectionEditBtn.addEventListener('click', () => {
+  const options = editForm(formData);
   
-
+  const section = new SectionElement(addedElements.length, addedElements[0], options.optionsObj);
+  
+  addedElements.push(section);
+  
+  currrentElement = main.appendChild(section.createElement(options.optionsArray.join(';')));
 });
 
 columnBtn.addEventListener('click', () => {
+  const formData = columnBtn.parentElement.parentElement;
+
+  const options = editForm(formData);
+
   if (!(addedElements[addedElements.length - 1] instanceof SectionElement)) {
     const parent = addedElements.findLast(
       (element) => element instanceof SectionElement,
@@ -165,36 +110,38 @@ columnBtn.addEventListener('click', () => {
 
     if (parent === undefined) return;
 
-    const column = new ColumnElement(addedElements.length, parent);
+    const column = new ColumnElement(addedElements.length, parent, options.optionsObj);
 
     addedElements.push(column);
 
     currrentElement = currrentElement.parentElement.appendChild(
-      column.createElement('background-color: #FFF;'),
+      column.createElement(options.optionsArray.join(';')),
     );
   } else {
     const column = new ColumnElement(
       addedElements.length,
       addedElements[addedElements.length - 1],
-      {
-        'background-color': '#000',
-      },
+      options.optionsObj
     );
 
     addedElements.push(column);
 
-    currrentElement = currrentElement.appendChild(column.createElement('background-color: #FFF;'));
+    currrentElement = currrentElement.appendChild(column.createElement(options.optionsArray.join(';')));
   }
 });
 
 textBtn.addEventListener('click', () => {
+  const formData = textBtn.parentElement.parentElement;
+
+  const options = editForm(formData);
+
   if (!(addedElements[addedElements.length - 1] instanceof ColumnElement)) {
     const parent = addedElements.findLast(
       (element) => element instanceof ColumnElement,
     );
     if (parent === undefined) return;
 
-    const text = new TextElement(addedElements.length, parent, '');
+    const text = new TextElement(addedElements.length, parent, options.optionsObj.content || '', options.optionsObj);
 
     addedElements.push(text);
 
@@ -205,68 +152,78 @@ textBtn.addEventListener('click', () => {
     const text = new TextElement(
       addedElements.length,
       addedElements[addedElements.length - 1],
-      'test',
-      { color: '#FF0000' },
+      options.optionsObj.content || '',
+      options.optionsObj,
     );
 
     addedElements.push(text);
 
-    currrentElement = currrentElement.appendChild(text.createElement());
+    currrentElement = currrentElement.appendChild(text.createElement(options.optionsArray.join(';')));
+
+    currrentElement.textContent = options.optionsObj.content;
+    
   }
 });
 
-buttonBtn.addEventListener('click', () => {
-  if (!(addedElements[addedElements.length - 1] instanceof ColumnElement)) {
-    const parent = addedElements.findLast(
-      (element) => element instanceof ColumnElement,
-    );
-    if (parent === undefined) return;
+// buttonBtn.addEventListener('click', () => {
+//   if (!(addedElements[addedElements.length - 1] instanceof ColumnElement)) {
+//     const parent = addedElements.findLast(
+//       (element) => element instanceof ColumnElement,
+//     );
+//     if (parent === undefined) return;
 
-    const button = new ButtonElement(addedElements.length, parent, '');
+//     const button = new ButtonElement(addedElements.length, parent, '');
 
-    addedElements.push(button);
+//     addedElements.push(button);
 
-    currrentElement = currrentElement.parentElement.appendChild(
-      button.createElement(),
-    );
-  } else {
-    const button = new ButtonElement(
-      addedElements.length,
-      addedElements[addedElements.length - 1],
-      // eslint-disable-next-line
-      '<a style=\"color:#fff\" href=\"https://www.google.com\" target=\"_blank\">Button 1</a>',
-      { color: '#FF0000' },
-    );
+//     currrentElement = currrentElement.parentElement.appendChild(
+//       button.createElement(),
+//     );
+//   } else {
+//     const button = new ButtonElement(
+//       addedElements.length,
+//       addedElements[addedElements.length - 1],
+//       // eslint-disable-next-line
+//       '<a style=\"color:#fff\" href=\"https://www.google.com\" target=\"_blank\">Button 1</a>',
+//       { color: '#FF0000' },
+//     );
 
-    addedElements.push(button);
+//     addedElements.push(button);
 
-    currrentElement = currrentElement.appendChild(button.createElement());
-  }
-});
+//     currrentElement = currrentElement.appendChild(button.createElement());
+//   }
+// });
 
 imageBtn.addEventListener('click', () => {
+  const formData = imageBtn.parentElement.parentElement;
+
+  const options = editForm(formData);
+
+  console.log(options.optionsObj);
+  console.log(options.optionsArray);
+
   if (!(addedElements[addedElements.length - 1] instanceof ColumnElement)) {
     const parent = addedElements.findLast(
       (element) => element instanceof ColumnElement,
     );
     if (parent === undefined) return;
 
-    const image = new ImageElement(addedElements.length, parent);
+    const image = new ImageElement(addedElements.length, parent, options.optionsObj);
 
     addedElements.push(image);
 
     currrentElement = currrentElement.parentElement.appendChild(
-      image.createElement(),
+      image.createElement(options.optionsArray.join(';')),
     );
   } else {
     const image = new ImageElement(
       addedElements.length,
       addedElements[addedElements.length - 1],
-      { src: 'https://picsum.photos/200' },
+      options.optionsObj,
     );
 
     addedElements.push(image);
 
-    currrentElement = currrentElement.appendChild(image.createElement());
+    currrentElement = currrentElement.appendChild(image.createElement(options.optionsArray.join(';')));
   }
 });

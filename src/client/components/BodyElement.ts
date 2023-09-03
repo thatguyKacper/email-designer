@@ -1,5 +1,5 @@
 import DragAndDropElement from './DragAndDropElement';
-import TestClass from './TestClass';
+import ElementClass from './Element';
 
 interface BodyAttributes {
   owa?: string;
@@ -7,7 +7,7 @@ interface BodyAttributes {
   dir?: string;
 }
 
-class BodyElement extends TestClass {
+class BodyElement extends ElementClass {
   constructor(id: number, attributes: BodyAttributes = {}) {
     super('body', id, attributes);
   }

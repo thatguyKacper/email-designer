@@ -1,4 +1,4 @@
-import TestClass from './TestClass';
+import ElementClass from './Element';
 
 interface ButtonAttributes {
   align?: string;
@@ -29,10 +29,10 @@ interface ButtonAttributes {
   width?: number;
 }
 
-class ButtonElement extends TestClass {
+class ButtonElement extends ElementClass {
   constructor(
     id: number,
-    parent: TestClass,
+    parent: ElementClass,
     content: string,
     attributes: ButtonAttributes = {},
   ) {

@@ -1,4 +1,4 @@
-class TestClass {
+class ElementClass {
   type: string;
 
   id: number;
@@ -7,17 +7,17 @@ class TestClass {
 
   content?: string;
 
-  parent?: TestClass;
+  parent?: ElementClass;
 
-  children?: TestClass[] = [];
+  children?: ElementClass[] = [];
 
   constructor(
     type: string,
     id: number,
     attributes: object = {},
-    parent?: TestClass,
+    parent?: ElementClass,
     content?: string,
-    children: TestClass[] = [],
+    children: ElementClass[] = [],
   ) {
     this.type = type;
     this.id = id;
@@ -27,7 +27,7 @@ class TestClass {
     this.attributes = attributes;
   }
 
-  static addedElements: TestClass[] = [];
+  static addedElements: ElementClass[] = [];
 
   public createElement(attributes?: string) {
     const element = document.createElement('div');
@@ -42,4 +42,4 @@ class TestClass {
   }
 }
 
-export default TestClass;
+export default ElementClass;

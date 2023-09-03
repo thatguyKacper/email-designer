@@ -1,4 +1,4 @@
-import TestClass from './TestClass';
+import ElementClass from './Element';
 
 interface ImageAttributes {
   align?: string;
@@ -24,8 +24,8 @@ interface ImageAttributes {
   width?: number;
 }
 
-class ImageElement extends TestClass {
-  constructor(id: number, parent: TestClass, attributes: ImageAttributes = {}) {
+class ImageElement extends ElementClass {
+  constructor(id: number, parent: ElementClass, attributes: ImageAttributes = {}) {
     super('image', id, attributes, parent);
 
     // if (!(this.parent instanceof SectionElement)) {

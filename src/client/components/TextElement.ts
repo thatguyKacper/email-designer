@@ -1,6 +1,6 @@
 import ColumnElement from './ColumnElement';
 import DragAndDropElement from './DragAndDropElement';
-import TestClass from './TestClass';
+import ElementClass from './Element';
 
 interface TextAttributes {
   align?: string;
@@ -20,10 +20,10 @@ interface TextAttributes {
   width?: number;
 }
 
-class TextElement extends TestClass {
+class TextElement extends ElementClass {
   constructor(
     id: number,
-    parent: TestClass,
+    parent: ElementClass,
     content: string,
     attributes: TextAttributes = {},
   ) {

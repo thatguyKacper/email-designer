@@ -1,6 +1,6 @@
 import DragAndDropElement from './DragAndDropElement';
 import SectionElement from './SectionElement';
-import TestClass from './TestClass';
+import ElementClass from './Element';
 
 interface ColumnAttributes {
   'background-color'?: string;
@@ -20,10 +20,10 @@ interface ColumnAttributes {
   width?: number;
 }
 
-class ColumnElement extends TestClass {
+class ColumnElement extends ElementClass {
   constructor(
     id: number,
-    parent: TestClass,
+    parent: ElementClass,
     attributes: ColumnAttributes = {},
   ) {
     super('column', id, attributes, parent);
